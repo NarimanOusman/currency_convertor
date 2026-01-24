@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>CurrencyX | Global Currency Conversion Simplified</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d5c33",       // ← deep green
+                        "primary-dark": "#062919",  // ← darker green
+                        "beige-light": "#fdfaf5",
+                        "beige-medium": "#f5f0e1",
+                        "beige-dark": "#e8e1cf",
+                        "text-main": "#0a2a1a",     // dark green text (was maroon)
+                        "background-light": "#fdfaf5",
+                        "background-dark": "#062919",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply bg-beige-light text-text-main;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-beige-light dark:bg-background-dark text-text-main dark:text-beige-light transition-colors duration-300">
+    <header
+        class="sticky top-0 z-50 w-full border-b border-solid border-beige-dark dark:border-gray-800 bg-beige-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-40 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="text-primary">
+                    <span class="material-symbols-outlined text-3xl font-bold">currency_exchange</span>
+                </div>
+                <h2 class="text-text-main dark:text-white text-xl font-extrabold leading-tight tracking-tight">CurrencyX
+                </h2>
+            </div>
+            <div class="hidden md:flex flex-1 justify-end items-center gap-10">
+                <nav class="flex items-center gap-8">
+                    <a class="text-text-main dark:text-beige-dark text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Rates</a>
+                    <a class="text-text-main dark:text-beige-dark text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Tools</a>
+                    <a class="text-text-main dark:text-beige-dark text-sm font-semibold hover:text-primary transition-colors"
+                        href="#">Business</a>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold tracking-wide hover:bg-primary-dark transition-all shadow-md">
+                        Login
+                    </button>
+                </div>
+            </div>
+            <div class="md:hidden">
+                <span class="material-symbols-outlined text-2xl">menu</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex flex-col items-center">
+        <section class="w-full py-12 lg:py-20 flex flex-col items-center justify-center">
+            <div class="max-w-[960px] w-full px-6 flex flex-col items-center text-center">
+                <div class="relative w-full max-w-[500px] aspect-video mb-12 flex items-center justify-center">
+                    <div class="absolute inset-0 bg-primary/5 rounded-full blur-3xl opacity-50"></div>
+                    <div class="relative z-10 w-full h-full flex items-center justify-center overflow-hidden">
+                        <div
+                            class="relative w-48 h-48 md:w-64 md:h-64 border-4 border-dashed border-primary/20 rounded-full flex items-center justify-center">
+                            <span
+                                class="material-symbols-outlined text-primary text-7xl md:text-9xl opacity-80">language</span>
+                            <div
+                                class="absolute -top-4 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg border border-beige-dark dark:border-gray-700">
+                                <span class="material-symbols-outlined text-primary text-2xl">attach_money</span>
+                            </div>
+                            <div
+                                class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg border border-beige-dark dark:border-gray-700">
+                                <span class="material-symbols-outlined text-primary text-2xl">euro_symbol</span>
+                            </div>
+                            <div
+                                class="absolute left-[-10px] top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg border border-beige-dark dark:border-gray-700">
+                                <span class="material-symbols-outlined text-primary text-2xl">currency_pound</span>
+                            </div>
+                            <div
+                                class="absolute right-[-10px] top-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg border border-beige-dark dark:border-gray-700">
+                                <span class="material-symbols-outlined text-primary text-2xl">currency_yen</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <h1
+                        class="text-text-main dark:text-white text-4xl font-black leading-tight tracking-tight md:text-6xl max-w-4xl mx-auto">
+                        Global Currency Conversion, <span class="text-primary">Simplified.</span>
+                    </h1>
+                    <p
+                        class="text-gray-700 dark:text-beige-dark text-lg md:text-xl font-normal leading-relaxed max-w-2xl mx-auto">
+                        Get fast, accurate, and real-time exchange rates for over 150 currencies. Experience the gold
+                        standard in currency data with zero hidden fees.
+                    </p>
+                    <div class="pt-4 flex flex-col items-center gap-4">
+                        <button
+                            class="flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold tracking-wide hover:scale-105 transition-transform shadow-xl shadow-primary/20">
+                            <a href="/dashboard/">
+                                <span class="truncate">Convert Now</span>
+                            </a>
+                        </button>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary text-base">verified</span>
+                            Real-time rates • Trusted by 1M+ users
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            class="w-full bg-beige-medium dark:bg-gray-900/50 py-16 md:py-24 border-y border-beige-dark dark:border-gray-800">
+            <div class="max-w-[1280px] mx-auto px-6 lg:px-40">
+                <div class="flex flex-col gap-12">
+                    <div class="flex flex-col gap-4 text-center md:text-left">
+                        <h2 class="text-text-main dark:text-white text-3xl font-bold leading-tight md:text-4xl">
+                            Why Choose CurrencyX
+                        </h2>
+                        <p class="text-gray-700 dark:text-beige-dark text-base md:text-lg max-w-[720px]">
+                            We provide the most reliable financial data for your individual and business needs.
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div
+                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
+                            <div
+                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined">monitoring</span>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-text-main dark:text-white text-xl font-bold">Accurate Rates</h3>
+                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
+                                    Mid-market rates updated every minute, sourced from top financial institutions.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
+                            <div
+                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined">bolt</span>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-text-main dark:text-white text-xl font-bold">Low Latency</h3>
+                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
+                                    Get your conversions in milliseconds with our lightning-fast infrastructure.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
+                            <div
+                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
+                                <span class="material-symbols-outlined">public</span>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <h3 class="text-text-main dark:text-white text-xl font-bold">Global Coverage</h3>
+                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
+                                    Support for over 150 currencies, including cryptocurrencies and commodities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section: Apply GREEN GRADIENT background -->
+        <section class="w-full py-20 lg:py-32">
+            <div class="max-w-[960px] mx-auto px-6">
+                <div
+                    class="bg-gradient-to-r from-[#0d5c33] to-[#062919] rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-black/20 rounded-full -ml-20 -mb-20 blur-3xl">
+                    </div>
+                    <div class="relative z-10 flex flex-col gap-8 items-center">
+                        <h2 class="text-3xl md:text-5xl font-black tracking-tight max-w-[600px]">
+                            Ready to exchange?
+                        </h2>
+                        <p class="text-white/80 text-lg md:text-xl max-w-[600px]">
+                            Join millions of users making smarter financial decisions every day with CurrencyX.
+                        </p>
+                        <a href="/dashboard/">
+                            <button
+                                class="flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-beige-light text-primary text-lg font-bold hover:bg-white transition-colors shadow-lg">
+                                Get Started
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer
+        class="w-full bg-beige-medium dark:bg-background-dark border-t border-beige-dark dark:border-gray-800 py-12">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-40 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary text-2xl">currency_exchange</span>
+                <span class="text-text-main dark:text-white font-bold text-lg">CurrencyX</span>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors"
+                    href="#">Privacy Policy</a>
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors"
+                    href="#">Terms of Service</a>
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors"
+                    href="#">Contact</a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-beige-dark/50">
+                © 2024 CurrencyX Inc. All rights reserved.
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

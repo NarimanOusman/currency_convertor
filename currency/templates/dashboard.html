@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live Currency Converter</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0d5c33, #0a3d25, #062919);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 650px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.94);
+            color: #0a3d25;
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.8rem;
+            color: #0a3d25;
+            font-size: 2.4rem;
+            font-weight: 700;
+        }
+
+        .status {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #0d5c33;
+            font-weight: 600;
+        }
+
+        .converter {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 0.9rem;
+            border-radius: 14px;
+            border: 2px solid #c8e6c9;
+        }
+
+        .input-group input {
+            flex: 1;
+            font-size: 1.3rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #0a3d25;
+            font-weight: 700;
+        }
+
+        .input-group select {
+            min-width: 110px;
+            padding: 0.5rem;
+            font-size: 1.1rem;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: #0a3d25;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .swap-btn {
+            background: #0d5c33;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            font-size: 1.4rem;
+            transition: transform 0.3s;
+        }
+
+        .swap-btn:hover {
+            background: #0a4a2a;
+            transform: rotate(180deg);
+        }
+
+        .rate-info {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 1.1rem;
+            color: #0d5c33;
+            font-weight: 600;
+            min-height: 1.6rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: #0a3d25;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1.8rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .input-group input {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>💱 Live Currency Converter</h1>
+        <div class="status">Fetching real-time rates...</div>
+        <div class="converter">
+            <div class="input-group">
+                <input type="text" id="amountFrom" placeholder="0.00" value="200">
+                <select id="fromCurrency"></select>
+            </div>
+
+            <button class="swap-btn" onclick="swapCurrencies()">⇅</button>
+
+            <div class="input-group">
+                <input type="text" id="amountTo" placeholder="0.00">
+                <select id="toCurrency"></select>
+            </div>
+
+            <div class="rate-info" id="rateInfo"></div>
+        </div>
+        <div class="footer-note">Rates updated in real-time • Source: ExchangeRate-API</div>
+    </div>
+
+    <script>
+        const amountFrom = document.getElementById('amountFrom');
+        const amountTo = document.getElementById('amountTo');
+        const fromCurrency = document.getElementById('fromCurrency');
+        const toCurrency = document.getElementById('toCurrency');
+        const status = document.querySelector('.status');
+        const rateInfo = document.getElementById('rateInfo');
+
+        let rates = null;
+        let lastFetch = 0;
+        const CACHE_TIME = 60000; // 60 seconds
+
+        async function fetchRates() {
+            const now = Date.now();
+            if (rates && (now - lastFetch) < CACHE_TIME) {
+                populateDropdowns();
+                return;
+            }
+
+            try {
+                status.textContent = "Loading latest rates...";
+                const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                if (!res.ok) throw new Error("API fetch failed");
+                const data = await res.json();
+                rates = data.rates;
+                lastFetch = now;
+                populateDropdowns();
+                status.textContent = "✅ Live rates loaded!";
+                setTimeout(() => {
+                    if (status.textContent === "✅ Live rates loaded!")
+                        status.textContent = "";
+                }, 2500);
+            } catch (err) {
+                console.error(err);
+                status.innerHTML = '<span style="color:#d32f2f;">❌ Failed to load rates</span>';
+            }
+        }
+
+        function populateDropdowns() {
+            const currencies = Object.keys(rates).sort();
+            fromCurrency.innerHTML = '';
+            toCurrency.innerHTML = '';
+
+            currencies.forEach(code => {
+                fromCurrency.add(new Option(code, code));
+                toCurrency.add(new Option(code, code));
+            });
+
+            fromCurrency.value = 'USD';
+            toCurrency.value = 'RWF';
+
+            convert('from');
+        }
+
+        function convert(changedField) {
+            if (!rates) return;
+
+            const from = fromCurrency.value;
+            const to = toCurrency.value;
+
+            if (!(from in rates) || !(to in rates)) {
+                amountTo.value = '';
+                amountFrom.value = '';
+                rateInfo.textContent = '⚠️ Unsupported currency';
+                return;
+            }
+
+            const rate = rates[to] / rates[from];
+            rateInfo.textContent = `1 ${from} = ${rate.toFixed(4)} ${to}`;
+
+            if (changedField === 'from') {
+                const val = parseFloat(amountFrom.value);
+                if (isNaN(val) || val <= 0) {
+                    amountTo.value = '';
+                    return;
+                }
+                const result = val * rate;
+                amountTo.value = parseFloat(result.toFixed(2)).toString();
+            } else if (changedField === 'to') {
+                const val = parseFloat(amountTo.value);
+                if (isNaN(val) || val <= 0) {
+                    amountFrom.value = '';
+                    return;
+                }
+                const result = val / rate;
+                amountFrom.value = parseFloat(result.toFixed(2)).toString();
+            }
+        }
+
+        function swapCurrencies() {
+            const tempCur = fromCurrency.value;
+            const tempAmt = amountFrom.value;
+
+            fromCurrency.value = toCurrency.value;
+            amountFrom.value = amountTo.value;
+
+            toCurrency.value = tempCur;
+            amountTo.value = tempAmt;
+
+            if (amountFrom.value) convert('from');
+            else if (amountTo.value) convert('to');
+        }
+
+        amountFrom.addEventListener('input', () => convert('from'));
+        amountTo.addEventListener('input', () => convert('to'));
+        fromCurrency.addEventListener('change', () => convert('from'));
+        toCurrency.addEventListener('change', () => convert('to'));
+
+        // Start!
+        fetchRates();
+    </script>
+</body>
+
+</html>
