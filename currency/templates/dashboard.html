@@ -18,7 +18,7 @@
             background: linear-gradient(135deg, #0d5c33, #0a3d25, #062919);
             color: white;
             min-height: 100vh;
-            padding: 2rem;
+            padding: 1rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,22 +30,22 @@
             background: rgba(255, 255, 255, 0.94);
             color: #0a3d25;
             border-radius: 24px;
-            padding: 2.5rem;
+            padding: 1.8rem;
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
         }
 
         h1 {
             text-align: center;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
             color: #0a3d25;
-            font-size: 2.4rem;
+            font-size: 2rem;
             font-weight: 700;
         }
 
         .status {
             text-align: center;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            font-size: 0.9rem;
             color: #0d5c33;
             font-weight: 600;
         }
@@ -53,53 +53,61 @@
         .converter {
             display: flex;
             flex-direction: column;
-            gap: 1.4rem;
+            gap: 1.2rem;
         }
 
         .input-group {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.8rem;
             background: white;
-            padding: 0.9rem;
+            padding: 0.8rem;
             border-radius: 14px;
             border: 2px solid #c8e6c9;
         }
 
         .input-group input {
             flex: 1;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             border: none;
             outline: none;
             background: transparent;
             color: #0a3d25;
             font-weight: 700;
+            min-width: 0;
         }
 
         .input-group select {
-            min-width: 110px;
-            padding: 0.5rem;
+            min-width: 100px;
+            padding: 0.5rem 0.8rem;
             font-size: 1.1rem;
             border: none;
             outline: none;
-            background: transparent;
+            background: white;
+            /* ✅ Critical: don't use transparent on mobile */
             color: #0a3d25;
             font-weight: 600;
             cursor: pointer;
+            border-radius: 8px;
+
+            /* Preserve native dropdown arrow on all devices */
+            -webkit-appearance: menulist;
+            -moz-appearance: menulist;
+            appearance: menulist;
         }
 
         .swap-btn {
             background: #0d5c33;
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             font-weight: bold;
             cursor: pointer;
             margin: 0 auto;
             display: block;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             transition: transform 0.3s;
         }
 
@@ -110,32 +118,38 @@
 
         .rate-info {
             text-align: center;
-            margin-top: 1.2rem;
-            font-size: 1.1rem;
+            margin-top: 1rem;
+            font-size: 1rem;
             color: #0d5c33;
             font-weight: 600;
-            min-height: 1.6rem;
+            min-height: 1.4rem;
         }
 
         .footer-note {
             text-align: center;
-            margin-top: 2rem;
-            font-size: 0.85rem;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
             color: #0a3d25;
             opacity: 0.8;
         }
 
         @media (max-width: 600px) {
             .container {
-                padding: 1.8rem;
+                padding: 1.4rem;
             }
 
             h1 {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
 
             .input-group input {
-                font-size: 1.15rem;
+                font-size: 1.1rem;
+            }
+
+            .input-group select {
+                font-size: 1rem;
+                min-width: 90px;
+                padding: 0.4rem 0.6rem;
             }
         }
     </style>
@@ -173,7 +187,7 @@
 
         let rates = null;
         let lastFetch = 0;
-        const CACHE_TIME = 60000; // 60 seconds
+        const CACHE_TIME = 60000;
 
         async function fetchRates() {
             const now = Date.now();
@@ -184,6 +198,7 @@
 
             try {
                 status.textContent = "Loading latest rates...";
+                // 🔥 Fixed: removed trailing spaces in URL
                 const res = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
                 if (!res.ok) throw new Error("API fetch failed");
                 const data = await res.json();
@@ -213,7 +228,6 @@
 
             fromCurrency.value = 'USD';
             toCurrency.value = 'RWF';
-
             convert('from');
         }
 
@@ -239,29 +253,20 @@
                     amountTo.value = '';
                     return;
                 }
-                const result = val * rate;
-                amountTo.value = parseFloat(result.toFixed(2)).toString();
+                amountTo.value = (val * rate).toFixed(2);
             } else if (changedField === 'to') {
                 const val = parseFloat(amountTo.value);
                 if (isNaN(val) || val <= 0) {
                     amountFrom.value = '';
                     return;
                 }
-                const result = val / rate;
-                amountFrom.value = parseFloat(result.toFixed(2)).toString();
+                amountFrom.value = (val / rate).toFixed(2);
             }
         }
 
         function swapCurrencies() {
-            const tempCur = fromCurrency.value;
-            const tempAmt = amountFrom.value;
-
-            fromCurrency.value = toCurrency.value;
-            amountFrom.value = amountTo.value;
-
-            toCurrency.value = tempCur;
-            amountTo.value = tempAmt;
-
+            [fromCurrency.value, toCurrency.value] = [toCurrency.value, fromCurrency.value];
+            [amountFrom.value, amountTo.value] = [amountTo.value, amountFrom.value];
             if (amountFrom.value) convert('from');
             else if (amountTo.value) convert('to');
         }
@@ -271,7 +276,6 @@
         fromCurrency.addEventListener('change', () => convert('from'));
         toCurrency.addEventListener('change', () => convert('to'));
 
-        // Start!
         fetchRates();
     </script>
 </body>
