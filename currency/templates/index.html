@@ -50,6 +50,62 @@
             width: 100%;
             height: 100%;
         }
+
+        /* From Uiverse.io by adamgiebl - Adapted for Green Theme */ 
+        .cssbuttons-io-button {
+            background: #0d5c33; /* primary */
+            color: white;
+            font-family: inherit;
+            padding: 0.35em;
+            padding-left: 1.2em;
+            font-size: 17px;
+            font-weight: 500;
+            border-radius: 0.9em;
+            border: none;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 1.6em -0.6em #062919; /* primary-dark */
+            overflow: hidden;
+            position: relative;
+            height: 2.8em;
+            padding-right: 3.3em;
+            cursor: pointer;
+            text-decoration: none; /* Ensure link text doesn't underline */
+        }
+
+        .cssbuttons-io-button .icon {
+            background: white;
+            margin-left: 1em;
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.2em;
+            width: 2.2em;
+            border-radius: 0.7em;
+            box-shadow: 0.1em 0.1em 0.6em 0.2em #062919; /* primary-dark */
+            right: 0.3em;
+            transition: all 0.3s;
+        }
+
+        .cssbuttons-io-button:hover .icon {
+            width: calc(100% - 0.6em);
+        }
+
+        .cssbuttons-io-button .icon svg {
+            width: 1.1em;
+            transition: transform 0.3s;
+            color: #0d5c33; /* primary */
+        }
+
+        .cssbuttons-io-button:hover .icon svg {
+            transform: translateX(0.1em);
+        }
+
+        .cssbuttons-io-button:active .icon {
+            transform: scale(0.95);
+        }
     </style>
     <!-- Import Map for React, Three.js, and HTM -->
     <script type="importmap">
@@ -108,12 +164,17 @@
                         standard in currency data with zero hidden fees.
                     </p>
                     <div class="pt-4 flex flex-col items-center gap-4">
-                        <button
-                            class="flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold tracking-wide hover:scale-105 transition-transform shadow-xl shadow-primary/20">
-                            <a href="/dashboard/">
-                                <span class="truncate">Convert Now</span>
-                            </a>
-                        </button>
+                        <a href="/dashboard/" class="cssbuttons-io-button">
+                            <span>Convert Now</span>
+                            <div class="icon">
+                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
+                        </a>
                         <p class="text-gray-500 dark:text-gray-400 text-sm font-medium flex items-center gap-2">
                             <span class="material-symbols-outlined text-primary text-base">verified</span>
                             Real-time rates • Trusted by 1M+ users
@@ -195,11 +256,16 @@
                         <p class="text-white/80 text-lg md:text-xl max-w-[600px]">
                             Join millions of users making smarter financial decisions every day with CurrencyX.
                         </p>
-                        <a href="/dashboard/">
-                            <button
-                                class="flex min-w-[200px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-8 bg-beige-light text-primary text-lg font-bold hover:bg-white transition-colors shadow-lg">
-                                Get Started
-                            </button>
+                        <a href="/dashboard/" class="cssbuttons-io-button" style="background: #fdfaf5; color: #0d5c33;">
+                            <span>Get Started</span>
+                            <div class="icon">
+                                <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 0h24v24H0z" fill="none"></path>
+                                    <path
+                                        d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"
+                                        fill="currentColor"></path>
+                                </svg>
+                            </div>
                         </a>
                     </div>
                 </div>
