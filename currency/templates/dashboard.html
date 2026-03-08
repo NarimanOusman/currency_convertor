@@ -133,6 +133,26 @@
             opacity: 0.8;
         }
 
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem 1rem;
+            background: #0d5c33;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .back-btn:hover {
+            background: #0a4a2a;
+            transform: translateX(-3px);
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 1.4rem;
@@ -157,6 +177,7 @@
 
 <body>
     <div class="container">
+        <a href="/" class="back-btn">← Back to Home</a>
         <h1>💱 Live Currency Converter</h1>
         <div class="status">Fetching real-time rates...</div>
         <div class="converter">

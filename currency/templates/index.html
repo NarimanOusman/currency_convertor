@@ -106,6 +106,122 @@
         .cssbuttons-io-button:active .icon {
             transform: scale(0.95);
         }
+
+        /* Card Animations */
+        @keyframes slideFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideFromBottom {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card {
+            min-height: 300px;
+            transition: all 0.3s ease;
+            height: 300px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        /* Mobile: Slide from left with sequential delays */
+        @media (max-width: 768px) {
+            .card {
+                animation: slideFromLeft 0.6s ease-out forwards;
+                opacity: 0;
+            }
+
+            .card.card-0 {
+                animation-delay: 0s;
+            }
+
+            .card.card-1 {
+                animation-delay: 0.2s;
+            }
+
+            .card.card-2 {
+                animation-delay: 0.4s;
+            }
+        }
+
+        /* Desktop: Slide from bottom with sequential delays */
+        @media (min-width: 769px) {
+            .card {
+                animation: slideFromBottom 0.6s ease-out forwards;
+                opacity: 0;
+            }
+
+            .card.card-0 {
+                animation-delay: 0s;
+            }
+
+            .card.card-1 {
+                animation-delay: 0.2s;
+            }
+
+            .card.card-2 {
+                animation-delay: 0.4s;
+            }
+        }
+
+        /* Card Image */
+        .card-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        /* Card Overlay Hover Effect - Works on both desktop and mobile */
+        .card-overlay {
+            background: linear-gradient(135deg, rgba(13, 92, 51, 0.96), rgba(10, 58, 37, 0.96));
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Hover/Touch state for all devices */
+        .card:hover .card-overlay,
+        .card.active .card-overlay {
+            transform: translateY(0);
+        }
+
+        .card:hover img,
+        .card.active img {
+            transform: scale(1.05);
+        }
+
+        .card-overlay h3,
+        .card-overlay p {
+            animation: slideUp 0.4s ease-out;
+        }
     </style>
     <!-- Import Map for React, Three.js, and HTM -->
     <script type="importmap">
@@ -197,43 +313,27 @@
                         </p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div
-                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
-                            <div
-                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                                <span class="material-symbols-outlined">monitoring</span>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <h3 class="text-text-main dark:text-white text-xl font-bold">Accurate Rates</h3>
-                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
-                                    Mid-market rates updated every minute, sourced from top financial institutions.
-                                </p>
+                        <div class="card card-0 relative overflow-hidden rounded-2xl border border-beige-dark dark:border-gray-700">
+                            <img src="https://d280xaotioobow.cloudfront.net/uploads/mastering-currency-exchange-your-guide-to-using-money-converter-online-750x500-1680078325.png" alt="Accurate Rates" class="card-img w-full h-full object-cover">
+                            <div class="card-overlay absolute inset-0 bg-primary flex flex-col items-center justify-center p-8 z-20">
+                                <h3 class="text-white text-xl font-bold mb-2">Accurate Rates</h3>
+                                <p class="text-white text-center text-sm">Mid-market rates updated every minute, sourced from top financial institutions.</p>
                             </div>
                         </div>
-                        <div
-                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
-                            <div
-                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                                <span class="material-symbols-outlined">bolt</span>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <h3 class="text-text-main dark:text-white text-xl font-bold">Low Latency</h3>
-                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
-                                    Get your conversions in milliseconds with our lightning-fast infrastructure.
-                                </p>
+
+                        <div class="card card-1 relative overflow-hidden rounded-2xl border border-beige-dark dark:border-gray-700">
+                            <img src="https://as1.ftcdn.net/v2/jpg/06/38/28/98/1000_F_638289825_UOv6VdXU5ytXpyFBr2eT0B3ZsBr8xrzl.jpg" alt="Low Latency" class="card-img w-full h-full object-cover">
+                            <div class="card-overlay absolute inset-0 bg-primary flex flex-col items-center justify-center p-8 z-20">
+                                <h3 class="text-white text-xl font-bold mb-2">Low Latency</h3>
+                                <p class="text-white text-center text-sm">Get your conversions in milliseconds with our lightning-fast infrastructure.</p>
                             </div>
                         </div>
-                        <div
-                            class="flex flex-col gap-4 rounded-2xl border border-beige-dark dark:border-gray-700 bg-beige-light dark:bg-background-dark p-8 hover:shadow-lg transition-shadow">
-                            <div
-                                class="text-primary bg-primary/10 w-12 h-12 rounded-lg flex items-center justify-center">
-                                <span class="material-symbols-outlined">public</span>
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <h3 class="text-text-main dark:text-white text-xl font-bold">Global Coverage</h3>
-                                <p class="text-gray-600 dark:text-beige-dark/70 text-sm leading-relaxed">
-                                    Support for over 150 currencies, including cryptocurrencies and commodities.
-                                </p>
+
+                        <div class="card card-2 relative overflow-hidden rounded-2xl border border-beige-dark dark:border-gray-700">
+                            <img src="https://c8.alamy.com/comp/2D4MWTP/global-money-transfer-and-exchange-concept-with-the-businessman-2D4MWTP.jpg" alt="Global Coverage" class="card-img w-full h-full object-cover">
+                            <div class="card-overlay absolute inset-0 bg-primary flex flex-col items-center justify-center p-8 z-20">
+                                <h3 class="text-white text-xl font-bold mb-2">Global Coverage</h3>
+                                <p class="text-white text-center text-sm">Support for over 150 currencies, including cryptocurrencies and commodities.</p>
                             </div>
                         </div>
                     </div>
@@ -796,6 +896,82 @@
         }
     </script>
     {% endverbatim %}
+
+    <!-- Card Animation Script -->
+    <script>
+        // Observe cards and trigger animations on scroll
+        const cards = document.querySelectorAll('.card');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Reset animation by cloning element
+                    const card = entry.target;
+                    card.style.animation = 'none';
+                    
+                    // Trigger reflow to restart animation
+                    void card.offsetWidth;
+                    
+                    // Re-apply animation based on device
+                    const isMobile = window.innerWidth <= 768;
+                    const cardIndex = Array.from(cards).indexOf(card);
+                    
+                    if (isMobile) {
+                        card.style.animation = `slideFromLeft 0.6s ease-out forwards`;
+                    } else {
+                        card.style.animation = `slideFromBottom 0.6s ease-out forwards`;
+                    }
+                    
+                    card.style.animationDelay = `${cardIndex * 0.2}s`;
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        cards.forEach(card => {
+            cardObserver.observe(card);
+        });
+
+        // Handle window resize to re-trigger animations
+        window.addEventListener('resize', () => {
+            cards.forEach(card => {
+                cardObserver.unobserve(card);
+                cardObserver.observe(card);
+            });
+        });
+
+        // Handle hover/touch for mobile devices
+        cards.forEach(card => {
+            // Mouse hover for desktop
+            card.addEventListener('mouseenter', function() {
+                this.classList.add('active');
+            });
+            card.addEventListener('mouseleave', function() {
+                this.classList.remove('active');
+            });
+
+            // Touch/hover for mobile
+            card.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                // Remove active class from all cards
+                cards.forEach(c => c.classList.remove('active'));
+                // Add active class to touched card
+                this.classList.add('active');
+            }, { passive: false });
+
+            // Remove active on touch outside
+            document.addEventListener('touchstart', function(e) {
+                if (!e.target.closest('.card')) {
+                    cards.forEach(c => c.classList.remove('active'));
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
