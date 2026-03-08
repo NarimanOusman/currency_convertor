@@ -6,7 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Live Currency Converter</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <style>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d5c33",
+                        "primary-dark": "#062919",
+                        "beige-light": "#fdfaf5",
+                        "beige-medium": "#f5f0e1",
+                        "beige-dark": "#e8e1cf",
+                        "text-main": "#0a2a1a",
+                        "background-light": "#fdfaf5",
+                        "background-dark": "#062919",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .nav-open {
+            display: flex !important;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -176,7 +207,29 @@
 </head>
 
 <body>
-    <div class="container">
+    <header class="fixed top-0 left-0 right-0 z-50 w-full bg-green-50 dark:bg-green-900/20 backdrop-blur-md border-b border-green-200 dark:border-green-800 shadow-lg">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-40 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="text-primary">
+                    <span style="font-size: 1.875rem;">💱</span>
+                </div>
+                <h2 class="text-text-main dark:text-white text-xl font-extrabold leading-tight tracking-tight">
+                    <a href="/">CurrencyX</a>
+                </h2>
+            </div>
+            <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors">
+                <svg class="w-6 h-6 text-text-main dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <nav id="nav-menu" class="hidden md:flex md:items-center md:gap-8 absolute md:static top-full left-0 right-0 md:bg-transparent bg-green-600 dark:bg-green-700 border-b md:border-b-0 border-green-700 dark:border-green-800 flex-col md:flex-row p-4 md:p-0 gap-4 md:gap-8 shadow-lg md:shadow-none">
+                <a href="/" class="text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Home</a>
+                <a href="/dashboard/" class="text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container pt-24 md:pt-28">
         <a href="/" class="back-btn">← Back to Home</a>
         <h1>💱 Live Currency Converter</h1>
         <div class="status">Fetching real-time rates...</div>
@@ -298,6 +351,23 @@
         toCurrency.addEventListener('change', () => convert('to'));
 
         fetchRates();
+    </script>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('nav-open');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('nav-open');
+            });
+        });
     </script>
 </body>
 

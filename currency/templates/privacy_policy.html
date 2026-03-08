@@ -35,38 +35,46 @@
             font-family: 'Inter', sans-serif;
             @apply bg-beige-light text-text-main;
         }
+        .nav-open {
+            display: flex !important;
+        }
     </style>
 </head>
 
 <body class="bg-beige-light dark:bg-background-dark text-text-main dark:text-beige-light transition-colors duration-300">
-    <header class="sticky top-0 z-50 w-full border-b border-solid border-beige-dark dark:border-gray-800 bg-beige-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+    <header class="fixed top-0 left-0 right-0 z-50 w-full bg-green-50 dark:bg-green-900/20 backdrop-blur-md border-b border-green-200 dark:border-green-800 shadow-lg">
         <div class="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-40 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="text-primary text-2xl">
                     💱
                 </div>
-                <h2 class="text-text-main dark:text-white text-lg md:text-xl font-extrabold leading-tight tracking-tight">
+                <h2 class="text-text-main dark:text-white text-base md:text-lg font-extrabold leading-tight tracking-tight">
                     <a href="/">CurrencyX</a>
                 </h2>
             </div>
-            <nav class="hidden md:flex items-center gap-6 md:gap-8">
-                <a href="/" class="text-sm md:text-base text-text-main dark:text-white hover:text-primary transition-colors">Home</a>
-                <a href="/dashboard/" class="text-sm md:text-base text-text-main dark:text-white hover:text-primary transition-colors">Dashboard</a>
+            <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors">
+                <svg class="w-6 h-6 text-text-main dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <nav id="nav-menu" class="hidden md:flex md:items-center md:gap-6 md:gap-8 absolute md:static top-full left-0 right-0 md:bg-transparent bg-green-600 dark:bg-green-700 border-b md:border-b-0 border-green-700 dark:border-green-800 flex-col md:flex-row p-4 md:p-0 gap-4 md:gap-8 shadow-lg md:shadow-none">
+                <a href="/" class="text-sm md:text-base text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Home</a>
+                <a href="/dashboard/" class="text-sm md:text-base text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Dashboard</a>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 md:px-6 lg:px-12 py-12 md:py-16">
-        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-8">Privacy Policy</h1>
+    <main class="max-w-4xl mx-auto px-4 md:px-6 lg:px-12 pt-24 md:pt-28">
+        <h1 class="text-2xl md:text-3xl font-bold text-primary mb-6 md:mb-8">Privacy Policy</h1>
         
-        <div class="space-y-6 md:space-y-8 text-sm md:text-base text-gray-700 dark:text-beige-dark/70">
+        <div class="space-y-4 md:space-y-6 text-sm md:text-base text-gray-700 dark:text-beige-dark/70">
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">1. Introduction</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">1. Introduction</h2>
                 <p>Welcome to CurrencyX. We are committed to protecting your privacy and ensuring you have a positive experience on our platform. This Privacy Policy outlines how we collect, use, disclose, and safeguard your information.</p>
             </section>
 
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">2. Information We Collect</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">2. Information We Collect</h2>
                 <p>We may collect information about you in a variety of ways. The information we may collect on the Site includes:</p>
                 <ul class="list-disc list-inside mt-2 space-y-2">
                     <li>Personal identification information (name, email address, phone number, etc.)</li>
@@ -77,7 +85,7 @@
             </section>
 
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">3. Use of Your Information</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">3. Use of Your Information</h2>
                 <p>Having accurate information about you permits us to provide you with a smooth, efficient, and customized experience. Specifically, we may use information collected about you via the Site to:</p>
                 <ul class="list-disc list-inside mt-2 space-y-2">
                     <li>Generate a personal profile about you so that future visits to the Site will be personalized</li>
@@ -88,7 +96,7 @@
             </section>
 
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">4. Disclosure of Your Information</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">4. Disclosure of Your Information</h2>
                 <p>We may share or disclose your information in the following situations:</p>
                 <ul class="list-disc list-inside mt-2 space-y-2">
                     <li>By Law or to protect rights, privacy, and safety</li>
@@ -98,12 +106,12 @@
             </section>
 
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">5. Security of Your Information</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">5. Security of Your Information</h2>
                 <p>We use administrative, technical, and physical security measures to protect your personal information. However, complete security of data transmitted over the Internet cannot be guaranteed.</p>
             </section>
 
             <section>
-                <h2 class="text-xl md:text-2xl font-bold text-text-main dark:text-white mb-3 md:mb-4">6. Contact Us</h2>
+                <h2 class="text-lg md:text-xl font-bold text-text-main dark:text-white mb-2 md:mb-3">6. Contact Us</h2>
                 <p>If you have questions or comments about this Privacy Policy, please contact us at:</p>
                 <p class="mt-2"><strong>Email:</strong> <a href="mailto:narimanrobo8@gmail.com" class="text-primary hover:underline">narimanrobo8@gmail.com</a></p>
             </section>
@@ -128,6 +136,23 @@
             <p class="text-xs md:text-sm text-gray-500 dark:text-beige-dark/50">© 2024 CurrencyX Inc. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('nav-open');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('nav-open');
+            });
+        });
+    </script>
 </body>
 
 </html>

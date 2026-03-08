@@ -35,11 +35,14 @@
             font-family: 'Inter', sans-serif;
             @apply bg-beige-light text-text-main;
         }
+        .nav-open {
+            display: flex !important;
+        }
     </style>
 </head>
 
 <body class="bg-beige-light dark:bg-background-dark text-text-main dark:text-beige-light transition-colors duration-300">
-    <header class="sticky top-0 z-50 w-full border-b border-solid border-beige-dark dark:border-gray-800 bg-beige-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+    <header class="fixed top-0 left-0 right-0 z-50 w-full bg-green-50 dark:bg-green-900/20 backdrop-blur-md border-b border-green-200 dark:border-green-800 shadow-lg">
         <div class="max-w-[1280px] mx-auto px-6 lg:px-40 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
                 <div class="text-primary">
@@ -49,14 +52,19 @@
                     <a href="/">CurrencyX</a>
                 </h2>
             </div>
-            <nav class="flex items-center gap-8">
-                <a href="/" class="text-text-main dark:text-white hover:text-primary transition-colors">Home</a>
-                <a href="/dashboard/" class="text-text-main dark:text-white hover:text-primary transition-colors">Dashboard</a>
+            <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-green-100 dark:hover:bg-green-800 transition-colors">
+                <svg class="w-6 h-6 text-text-main dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <nav id="nav-menu" class="hidden md:flex md:items-center md:gap-8 absolute md:static top-full left-0 right-0 md:bg-transparent bg-green-600 dark:bg-green-700 border-b md:border-b-0 border-green-700 dark:border-green-800 flex-col md:flex-row p-4 md:p-0 gap-4 md:gap-8 shadow-lg md:shadow-none">
+                <a href="/" class="text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Home</a>
+                <a href="/dashboard/" class="text-white md:text-text-main md:dark:text-white hover:text-green-100 md:hover:text-primary transition-colors">Dashboard</a>
             </nav>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-6 lg:px-12 py-16">
+    <main class="max-w-4xl mx-auto px-6 lg:px-12 pt-24 md:pt-28">
         <h1 class="text-4xl font-bold text-primary mb-4">Contact Us</h1>
         <p class="text-gray-700 dark:text-beige-dark/70 mb-12">We'd love to hear from you. Get in touch with us using the information below.</p>
         
@@ -158,6 +166,23 @@
             <p class="text-sm text-gray-500 dark:text-beige-dark/50">© 2024 CurrencyX Inc. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('nav-open');
+        });
+
+        // Close menu when a link is clicked
+        const navLinks = navMenu.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('nav-open');
+            });
+        });
+    </script>
 </body>
 
 </html>
