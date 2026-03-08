@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Contact Us - CurrencyX</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d5c33",
+                        "primary-dark": "#062919",
+                        "beige-light": "#fdfaf5",
+                        "beige-medium": "#f5f0e1",
+                        "beige-dark": "#e8e1cf",
+                        "text-main": "#0a2a1a",
+                        "background-light": "#fdfaf5",
+                        "background-dark": "#062919",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: 'Inter', sans-serif;
+            @apply bg-beige-light text-text-main;
+        }
+    </style>
+</head>
+
+<body class="bg-beige-light dark:bg-background-dark text-text-main dark:text-beige-light transition-colors duration-300">
+    <header class="sticky top-0 z-50 w-full border-b border-solid border-beige-dark dark:border-gray-800 bg-beige-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-40 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="text-primary">
+                    <span style="font-size: 1.875rem;">💱</span>
+                </div>
+                <h2 class="text-text-main dark:text-white text-xl font-extrabold leading-tight tracking-tight">
+                    <a href="/">CurrencyX</a>
+                </h2>
+            </div>
+            <nav class="flex items-center gap-8">
+                <a href="/" class="text-text-main dark:text-white hover:text-primary transition-colors">Home</a>
+                <a href="/dashboard/" class="text-text-main dark:text-white hover:text-primary transition-colors">Dashboard</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 lg:px-12 py-16">
+        <h1 class="text-4xl font-bold text-primary mb-4">Contact Us</h1>
+        <p class="text-gray-700 dark:text-beige-dark/70 mb-12">We'd love to hear from you. Get in touch with us using the information below.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Contact Information -->
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-text-main dark:text-white mb-4">Get In Touch</h2>
+                    <p class="text-gray-700 dark:text-beige-dark/70 mb-6">Have a question or want to chat? We're always happy to help. Reach out to us via email and we'll respond as soon as possible.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-semibold text-text-main dark:text-white mb-2">Email</h3>
+                        <p class="text-gray-700 dark:text-beige-dark/70">
+                            <a href="mailto:narimanrobo8@gmail.com" class="text-primary hover:underline font-semibold">narimanrobo8@gmail.com</a>
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-text-main dark:text-white mb-2">Response Time</h3>
+                        <p class="text-gray-700 dark:text-beige-dark/70">We typically respond to emails within 24-48 hours.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-semibold text-text-main dark:text-white mb-2">Availability</h3>
+                        <p class="text-gray-700 dark:text-beige-dark/70">Monday - Friday: 9:00 AM - 6:00 PM (UTC)</p>
+                    </div>
+                </div>
+
+                <div class="bg-primary/10 border border-primary rounded-lg p-6">
+                    <h3 class="font-semibold text-primary mb-2">Support</h3>
+                    <p class="text-gray-700 dark:text-beige-dark/70">For urgent technical issues, please include as much detail as possible in your email including your browser, device, and a description of what went wrong.</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div>
+                <div class="bg-white dark:bg-gray-900 rounded-lg border border-beige-dark dark:border-gray-700 p-8">
+                    <h3 class="text-xl font-bold text-text-main dark:text-white mb-6">Send us a Message</h3>
+                    
+                    <!-- Success Message -->
+                    {% if success %}
+                    <div class="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700 rounded-lg">
+                        <p class="text-green-800 dark:text-green-200 font-medium">{{ success }}</p>
+                    </div>
+                    {% endif %}
+
+                    <!-- Error Message -->
+                    {% if error %}
+                    <div class="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg">
+                        <p class="text-red-800 dark:text-red-200 font-medium">{{ error }}</p>
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'contact' %}" class="space-y-4">
+                        {% csrf_token %}
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-text-main dark:text-white mb-1">Your Name</label>
+                            <input type="text" name="name" id="name" required class="w-full px-4 py-2 border border-beige-dark dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800" placeholder="John Doe" value="{{ name|default:'' }}">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-text-main dark:text-white mb-1">Email Address</label>
+                            <input type="email" name="email" id="email" required class="w-full px-4 py-2 border border-beige-dark dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800" placeholder="your@email.com" value="{{ email|default:'' }}">
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-text-main dark:text-white mb-1">Subject</label>
+                            <input type="text" name="subject" id="subject" required class="w-full px-4 py-2 border border-beige-dark dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800" placeholder="Subject" value="{{ subject|default:'' }}">
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-text-main dark:text-white mb-1">Message</label>
+                            <textarea name="message" id="message" rows="4" required class="w-full px-4 py-2 border border-beige-dark dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800" placeholder="Your message here...">{{ message|default:'' }}</textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                    <p class="text-xs text-gray-500 dark:text-beige-dark/50 mt-4">Or email directly to <a href="mailto:narimanrobo8@gmail.com" class="text-primary hover:underline">narimanrobo8@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full bg-beige-medium dark:bg-background-dark border-t border-beige-dark dark:border-gray-800 py-12 mt-16">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-40 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="text-primary text-2xl">💱</div>
+                <span class="text-text-main dark:text-white font-bold text-lg">CurrencyX</span>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors" href="/privacy-policy/">Privacy Policy</a>
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors" href="/terms-of-service/">Terms of Service</a>
+                <a class="text-sm text-gray-600 dark:text-beige-dark/70 hover:text-primary transition-colors" href="/contact/">Contact</a>
+            </div>
+            <p class="text-sm text-gray-500 dark:text-beige-dark/50">© 2024 CurrencyX Inc. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
